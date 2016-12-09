@@ -53,6 +53,16 @@ public class GeoPoint {
      * "flat earth" simplification.
      */
   	public static final double KM_PER_DEGREE_LONGITUDE = 93.681;
+
+  	/**
+  	 * represent the GeoPoint latitude
+  	 */
+  	private final int latitude;
+  	
+  	/**
+  	 * represent the GeoPoint longitude
+  	 */
+  	private final int longitude;
   	
 	// Implementation hint:
 	// Doubles and floating point math can cause some problems. The exact
@@ -90,6 +100,10 @@ public class GeoPoint {
    	 **/
   	public GeoPoint(int latitude, int longitude) {
   		// TODO Implement this constructor
+  		this.latitude=latitude;
+  		this.longitude=longitude;
+  		checkRep();
+  		
   	}
 
   	 
@@ -98,7 +112,8 @@ public class GeoPoint {
      * @return the latitude of this in millionths of degrees.
      */
   	public int getLatitude() {
-  		// TODO Implement this method
+  		checkRep();
+  		return latitude;
   	}
 
 
@@ -107,7 +122,8 @@ public class GeoPoint {
      * @return the latitude of this in millionths of degrees.
      */
   	public int getLongitude() {
-  		// TODO Implement this method
+  		checkRep();
+  		return longitude;
   	}
 
 
@@ -118,7 +134,12 @@ public class GeoPoint {
      *         the Technion approximation.
      **/
   	public double distanceTo(GeoPoint gp) {
-  		// TODO Implement this method
+  		checkRep();
+  		int deltaLatitudeDeg = Math.abs(latitude-gp.latitude);
+  		int deltaLongitudeDeg = Math.abs(longitude-gp.longitude);
+  		double deltaLatitudeKm = deltaLatitudeDeg*KM_PER_DEGREE_LATITUDE;
+  		double deltaLongitudeKm = deltaLongitudeDeg*KM_PER_DEGREE_LONGITUDE;
+  		return Math.sqrt(deltaLatitude^2 + deltaLongitude^2);
   	}
 
 
@@ -173,6 +194,25 @@ public class GeoPoint {
      **/
   	public String toString() {
   		// TODO Implement this method
+  	}
+  	
+  	/**
+  	 * Checks to see if the representation invariant is being violated.
+  	 * @throws AssertionError if representation invariant is violated.
+  	 **/
+  	private void checkRep()
+  	{
+  		assert(latitude > MAX_LATITUDE):
+  			"Latitude canot be more than 90";
+
+  		assert(latitude < MIN_LATITUDE):
+  			"Latitude canot be less than -90";
+  		
+  		assert(longitude > MAX_LONGITUDE):
+  			"Longitude canot be more than 180";
+
+  		assert(longitude < MIN_LONGITUDE):
+  			"Longitude canot be less than -180";
   	}
 
 }

@@ -67,6 +67,17 @@ public class GeoPoint {
   	
   	// TODO Write abstraction function and representation invariant
   	
+  	/**
+  	 * Abstraction Function
+  	 * A GeoPoint r is a point on earth with r.latitude/1e6 latitude and r.longitude/1e6 longitude
+  	 * where a positive latitude  represents N and negative latutude  represents S
+  	 * where a positive longitude represents E and negative longitude represents W
+  	 */
+  	/**
+  	 * Representation Invariant for every GeoPoint r
+  	 * MIN_LATITUDE <= r.latitude  <= MAX_LATITUDE
+  	 * MIN_LONGITUDE <= r.longitude <= MAX_LONGITUDE
+  	 */
   	
   	/**
   	 * Constructs GeoPoint from a latitude and longitude.
